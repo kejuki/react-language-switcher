@@ -12,13 +12,14 @@ import { text } from './text'
 export const LanguageContext = React.createContext()
 
 function App() {
+  //initializes reducer, sets default language either from localstorage, browsers navigator object or defaults to english.
   const [state, dispatch] = useReducer(
     languageReducer, 
     JSON.parse(localStorage.getItem("localization")) || 
     {code: navigator.languages.find(lan => lan === "fi" || lan === "en") || 
     "en"
   }) 
-
+  
   return (
     <div className='wrapper'>
       <LanguageContext.Provider value={{state, dispatch}}>
