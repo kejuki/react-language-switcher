@@ -6,19 +6,14 @@ import { Libraries } from "./components/pages/Libraries";
 import { About } from "./components/pages/About";
 import { Routes, Route } from "react-router-dom"
 import { useReducer } from 'react'
-import languageReducer from "./reducers/languageReducer";
+import languageReducer, {initLanguageState} from "./reducers/languageReducer";
 import { text } from './text'
 
 export const LanguageContext = React.createContext()
 
 function App() {
   //initializes reducer, sets default language either from localstorage, browsers navigator object or defaults to english.
-  const [state, dispatch] = useReducer(
-    languageReducer, 
-    JSON.parse(localStorage.getItem("localization")) || 
-    {code: navigator.languages.find(lan => lan === "fi" || lan === "en") || 
-    "en"
-  }) 
+  const [state, dispatch] = useReducer(languageReducer, initLanguageState()) 
   
   return (
     <div className='wrapper'>

@@ -14,4 +14,11 @@ const languageReducer = (state, action) => {
   }
 }
 
+export const initLanguageState = () =>{
+  return JSON.parse(localStorage.getItem("localization")) ||
+    {code: navigator.languages.find(lan => lan === "fi" || lan === "en") || 
+    "en"
+  }
+}
+
 export default languageReducer
