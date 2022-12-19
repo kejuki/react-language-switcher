@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { lazy, Suspense} from 'react';
 import NavbarItem from './components/NavbarItem'
 import LanguageSwitch from './components/LanguageSwitch'
-import { Home } from "./components/pages/Home";
-import { Libraries } from "./components/pages/Libraries";
-import { About } from "./components/pages/About";
 import { Routes, Route } from "react-router-dom"
 import { useReducer } from 'react'
 import languageReducer, {initLanguageState} from "./reducers/languageReducer";
 import { text } from './text'
+const Home = lazy(()=> import('./components/pages/Home'))
+const Libraries = lazy(()=> import('./components/pages/Libraries'))
+const About = lazy(()=> import('./components/pages/About'))
+
 
 export const LanguageContext = React.createContext()
 
@@ -26,11 +27,13 @@ function App() {
             <LanguageSwitch />
           </ul>
         </nav>
-        <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/libraries" element={<Libraries/>}/>
-          <Route path="/about" element={<About/>}/>
-        </Routes>
+        <Suspense fallback={<div>loading</div>}>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/libraries" element={<Libraries/>}/>
+            <Route path="/about" element={<About/>}/>
+          </Routes>
+        </Suspense>
       </LanguageContext.Provider>
     </div>
   );

@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { LanguageContext } from "../../App"
 import { text } from "../../text"
 
-export function About() {
+function About() {
   const { state } = useContext(LanguageContext)
   return(
     <div className="page-content">
@@ -11,3 +11,4 @@ export function About() {
     </div>
   )
 }
+export default About
